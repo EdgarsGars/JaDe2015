@@ -7,7 +7,7 @@ import java.util.HashMap;
 /**
  * Abstract item list class which could be extended to concrete implementation as ShopingList, DeliveryList, etc
  * @author Janis
- *
+ *dasd
  */
 public abstract class ItemList {
 	private HashMap<String,Item> items;
