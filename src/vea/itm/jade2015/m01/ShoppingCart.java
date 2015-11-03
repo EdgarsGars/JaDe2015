@@ -7,33 +7,18 @@ public class ShoppingCart {
 	ArrayList<Item> orderItems = new ArrayList<Item>();
 	
 	/**
-	 * Calculate total costs of items in the ShoppingCart - excluding taxes
-	 * @return total item costs
-	 */
-	public double calculateItemPrice(){
-		double price = 0;
-    	for (Item item : orderItems) {
-    		price += item.cost * item.quantity;
-		}
-		return price;
-	}
-	
-	/**
 	 * Calculate total costs of items in the ShoppingCart - including taxes
 	 * @param customer - customer in question 
 	 * @return total costs
 	 */
     public double calculateTotal(Customer customer)
     {
-    	double total = calculateItemPrice();
+    	double total = 0;
+    	for (Item item : orderItems) {
+			total += item.cost * item.quantity;
+		}
 
-        double tax;
-        if (customer.stateCode == "DE")
-            tax = total * .08d;
-        else if (customer.stateCode == "FR")
-            tax = total * .09d;
-        else
-            tax = .03d;
+        double tax = TaxServiceFactory.getTaxService("taxJar").getTax(customer);
 
         total = total + tax;
         return total;

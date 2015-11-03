@@ -1,63 +1,86 @@
 package vea.itm.jade2015.taxServices;
 
-import java.io.IOException;
-
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 import vea.itm.jade2015.m01.Customer;
-import vea.itm.jade2015.m01.Shop;
-import vea.itm.jade2015.m01.ShoppingCart;
 
-public class TaxJarAPI implements TaxService{
+public class TaxJarAPI implements TaxService {
 
-	private final String apiToken = "ae0d9ea987e0b027f38792280a2b5568";
-	private final String host = "api.taxjar.com";
-	private final int port = 443;
-	private final String restPath = "/sales_tax";
+	private static final String apiToken = "ae0d9ea987e0b027f38792280a2b5568";
+	private static final String host = "api.taxjar.com";
+	private static final int port = 443;
+	private static final String restPath = "/v2/taxes";
 	
-	public double getTax(String countryCode) {
-		//TODO Customer customer = getCustomerInfo();
-		Customer customer = new Customer();
+	/**
+	 * @param customer - customer in question 
+	 * @return tax rate
+	 */
+	public double getTax(Customer customer) {
+		double rate = 0;
 		
-		//TODO Shop shop = getShopInfo();
-		Shop shop = new Shop();
-		
-		//TODO ShoppingCart cart = getShoppingCartInfo();
-		ShoppingCart cart = new ShoppingCart();
-		
-		HttpClient httpClient = new DefaultHttpClient();
+		HttpClient httpClient = HttpClientBuilder.create().build();
 		
 		URIBuilder builder = new URIBuilder();
 		
-	    builder.setScheme("http").setHost(host).setPort(port)
+	    builder.setScheme("https").setHost(host).setPort(port)
 	    .setPath(restPath)
-	    .setParameter("amount","10")
+	    .setParameter("amount","0")
 	    .setParameter("shipping","0")
-	    .setParameter("from_country","CA")
-	    .setParameter("to_country","CA");
+	    .setParameter("from_country",customer.getCountryCode())
+	    .setParameter("to_country",customer.getCountryCode());
 	    
-	    if (countryCode == "US" || countryCode == "CA") {
+	    if (customer.getCountryCode() == "US" || customer.getCountryCode() == "CA") {
 	    	builder
-	    	.setParameter("from_state", "BC")
-		    .setParameter("from_zip","V0J1A0")
-			.setParameter("to_state", "BC")
-		    .setParameter("to_zip","V0J1A0");
-	    	
+	    	.setParameter("from_state",customer.getStateCode())
+		    .setParameter("from_zip",customer.getZipCode())
+			.setParameter("to_state",customer.getStateCode())
+		    .setParameter("to_zip",customer.getZipCode());
 	    }
 	    	
-	    	
-	    
-	    
-	    
-		
 	    HttpPost postRequest = new HttpPost(builder.toString());
 	    postRequest.setHeader("Authorization", "Bearer "+apiToken);
 		
-		return 0;
+	    HttpResponse response;
+	    String encoding;
+	    
+		try {
+			response = httpClient.execute(postRequest);
+			if (response.getStatusLine().getStatusCode() != 200){
+		    	throw new RuntimeException("Failed: HTTP error code : " + response.getStatusLine().getStatusCode());
+		    }
+			HttpEntity entity = response.getEntity();
+		    Header encodingHeader = entity.getContentEncoding();
+		    try{
+		    	encoding = encodingHeader.getValue();
+		    } catch(NullPointerException e){
+		    	encoding="UTF-8";
+		    }
+		    
+		    String responseString = EntityUtils.toString(entity,encoding);
+		    JSONObject jsonObj = new JSONObject(responseString);
+		    rate = Double.parseDouble(jsonObj.getJSONObject("tax").get("rate").toString());
+
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+		}
+	    
+		return rate;
 	}
 
 }
