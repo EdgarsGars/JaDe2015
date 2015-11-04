@@ -18,7 +18,7 @@ public class ShoppingCart {
     {
     	double total = 0;
     	for (Item item : orderItems) {
-			total += item.cost * item.quantity;
+			total += item.getCost() * item.getQuantity();
 		}
     	TaxObject taxObject = new TaxObject(total, customer);
         double tax = TaxServiceFactory.getTaxService("taxJar").getTax(taxObject);

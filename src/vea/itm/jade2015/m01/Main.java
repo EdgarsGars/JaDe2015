@@ -29,8 +29,8 @@ public class Main {
 		System.out.println("---------------------");
 		double totalWithoutTax = 0;
 		for (Item item : shopCart.orderItems) {
-			totalWithoutTax += item.cost;
-			System.out.println(item.code + "\t\t" + dec.format(item.cost) + "$");
+			totalWithoutTax += item.getCost();
+			System.out.println(item.getCode() + "\t\t" + dec.format(item.getCost()) + "$");
 
 		}
 		TaxObject taxObject = new TaxObject(totalWithoutTax, customer1);

@@ -18,7 +18,7 @@ public abstract class ItemList {
 	
 	boolean addItem(Item item){
 		if (item!=null){
-			items.put(item.code,item);
+			items.put(item.getCode(),item);
 			return true;
 		}
 		else{
