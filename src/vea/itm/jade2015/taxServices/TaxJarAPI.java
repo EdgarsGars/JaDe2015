@@ -14,7 +14,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-import vea.itm.jade2015.m01.Customer;
 
 public class TaxJarAPI implements TaxService {
 
@@ -27,7 +26,7 @@ public class TaxJarAPI implements TaxService {
 	 * @param customer - customer in question 
 	 * @return tax rate
 	 */
-	public double getTax(Customer customer) {
+	public double getTax(TaxObject taxObject) {
 		double rate = 0;
 		
 		HttpClient httpClient = HttpClientBuilder.create().build();
@@ -38,15 +37,15 @@ public class TaxJarAPI implements TaxService {
 	    .setPath(restPath)
 	    .setParameter("amount","0")
 	    .setParameter("shipping","0")
-	    .setParameter("from_country",customer.getCountryCode())
-	    .setParameter("to_country",customer.getCountryCode());
+	    .setParameter("from_country",taxObject.getCountryCode())
+	    .setParameter("to_country",taxObject.getCountryCode());
 	    
-	    if (customer.getCountryCode() == "US" || customer.getCountryCode() == "CA") {
+	    if (taxObject.getCountryCode().equals("US") || taxObject.getCountryCode().equals("CA")) {
 	    	builder
-	    	.setParameter("from_state",customer.getStateCode())
-		    .setParameter("from_zip",customer.getZipCode())
-			.setParameter("to_state",customer.getStateCode())
-		    .setParameter("to_zip",customer.getZipCode());
+	    	.setParameter("from_state",taxObject.getStateCode())
+		    .setParameter("from_zip",taxObject.getZipCode())
+			.setParameter("to_state",taxObject.getStateCode())
+		    .setParameter("to_zip",taxObject.getZipCode());
 	    }
 	    	
 	    HttpPost postRequest = new HttpPost(builder.toString());
