@@ -30,7 +30,7 @@ public final class Shop extends ItemList {
 	 */
 	ArrayList<Item> getAllItems(Customer customer){
 		//Sets true, indicating that Customer has viewed all new Items.
-		watched.put(customer.name,true);
+		watched.put(customer.getName(),true);
 		return (ArrayList<Item>) super.getAllItems();
 	}
 	
@@ -46,8 +46,8 @@ public final class Shop extends ItemList {
 	 * @return true - if there are new Items in the Shop, false - if not
 	 */
 	public boolean isNewItems(Customer customer){
-		if(watched.containsKey(customer.name)){
-			return watched.get(customer.name);
+		if(watched.containsKey(customer.getName())){
+			return watched.get(customer.getName());
 		} else 
 			return true;
 	}

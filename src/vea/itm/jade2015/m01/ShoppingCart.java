@@ -2,6 +2,9 @@ package vea.itm.jade2015.m01;
 
 import java.util.ArrayList;
 
+import vea.itm.jade2015.taxServices.TaxObject;
+import vea.itm.jade2015.taxServices.TaxServiceFactory;
+
 public class ShoppingCart {
 	
 	ArrayList<Item> orderItems = new ArrayList<Item>();
@@ -15,19 +18,11 @@ public class ShoppingCart {
     {
     	double total = 0;
     	for (Item item : orderItems) {
-			total += item.cost * item.quantity;
+			total += item.getCost() * item.getQuantity();
 		}
-
-
-        double tax;
-        if (customer.stateCode == "DE")
-            tax = total * .08d;
-        else if (customer.stateCode == "FR")
-            tax = total * .09d;
-        else
-            tax = .03d;
-
-        total = total + tax;
+    	TaxObject taxObject = new TaxObject(total, customer);
+        double tax = TaxServiceFactory.getTaxService("taxJar").getTax(taxObject);
+        total = total + total * tax;
         return total;
     }
     
