@@ -8,7 +8,9 @@ public class TaxServiceFactoryTest {
 
 	@Test
 	public void testGetTaxService() {
-		fail("Not yet implemented");
+		assertTrue(TaxServiceFactory.getTaxService("taxJar") instanceof TaxJarAPI);
+		assertTrue(TaxServiceFactory.getTaxService("hardcode") instanceof HardcodedTax);
+		assertTrue(TaxServiceFactory.getTaxService("bob")== null);
 	}
 
 }

@@ -3,6 +3,7 @@ package vea.itm.jade2015.taxServices;
 public class TaxServiceFactory {
 
 	public static TaxService getTaxService(String serviceName) {
+
 		TaxService defaultService = new HardcodedTax();
 		try {
 			Class<?> newClass = Class.forName("vea.itm.jade2015.taxServices."+serviceName);
@@ -16,7 +17,7 @@ public class TaxServiceFactory {
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 			return defaultService;
-		}
 	}
 
+}
 }

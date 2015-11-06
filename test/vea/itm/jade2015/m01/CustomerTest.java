@@ -8,62 +8,87 @@ public class CustomerTest {
 
 	@Test
 	public void testCustomer() {
-		fail("Not yet implemented");
+		Customer customer = new Customer();
+		assertEquals(customer.getName(),null);
+		assertEquals(customer.getCountry(),null);
+		assertEquals(customer.getCountryCode(),null);
+		assertEquals(customer.getStateCode(),null);
+		assertEquals(customer.getZipCode(),null);
 	}
 
 	@Test
 	public void testCustomerStringStringStringStringString() {
-		fail("Not yet implemented");
+		Customer customer = new Customer("John Doe", "Latvia", "LV", "Kurzeme", "LV-3601");
+		assertEquals(customer.getName(),"John Doe");
+		assertEquals(customer.getCountry(),"Latvia");
+		assertEquals(customer.getCountryCode(),"LV");
+		assertEquals(customer.getStateCode(),"Kurzeme");
+		assertEquals(customer.getZipCode(),"LV-3601");
 	}
 
 	@Test
 	public void testGetName() {
-		fail("Not yet implemented");
+		Customer customer = new Customer("John Doe", "Latvia", "LV", "Kurzeme", "LV-3601");
+		assertEquals(customer.getName(),"John Doe");
 	}
 
 	@Test
 	public void testSetName() {
-		fail("Not yet implemented");
+		Customer customer = new Customer("John Doe", "Latvia", "LV", "Kurzeme", "LV-3601");
+		customer.setName("Lilly");
+		assertEquals(customer.getName(),"Lilly");
 	}
 
 	@Test
 	public void testGetCountry() {
-		fail("Not yet implemented");
+		Customer customer = new Customer("John Doe", "Latvia", "LV", "Kurzeme", "LV-3601");
+		assertEquals(customer.getCountry(),"Latvia");
 	}
 
 	@Test
 	public void testSetCountry() {
-		fail("Not yet implemented");
+		Customer customer = new Customer("John Doe", "Latvia", "LV", "Kurzeme", "LV-3601");
+		customer.setCountry("Lithuania");
+		assertEquals(customer.getCountry(),"Lithuania");
 	}
 
 	@Test
 	public void testGetCountryCode() {
-		fail("Not yet implemented");
+		Customer customer = new Customer("John Doe", "Latvia", "LV", "Kurzeme", "LV-3601");
+		assertEquals(customer.getCountryCode(),"LV");
 	}
 
 	@Test
 	public void testSetCountryCode() {
-		fail("Not yet implemented");
+		Customer customer = new Customer("John Doe", "Latvia", "LV", "Kurzeme", "LV-3601");
+		customer.setCountryCode("LT");
+		assertEquals(customer.getCountryCode(),"LT");
 	}
 
 	@Test
 	public void testGetStateCode() {
-		fail("Not yet implemented");
+		Customer customer = new Customer("John Doe", "Latvia", "LV", "Kurzeme", "LV-3601");
+		assertEquals(customer.getStateCode(),"Kurzeme");
 	}
 
 	@Test
 	public void testSetStateCode() {
-		fail("Not yet implemented");
+		Customer customer = new Customer("John Doe", "Latvia", "LV", "Kurzeme", "LV-3601");
+		customer.setStateCode("Latgale");
+		assertEquals(customer.getStateCode(),"Latgale");
 	}
 
 	@Test
 	public void testGetZipCode() {
-		fail("Not yet implemented");
+		Customer customer = new Customer("John Doe", "Latvia", "LV", "Kurzeme", "LV-3601");
+		assertEquals(customer.getZipCode(),"LV-3601");
 	}
 
 	@Test
 	public void testSetZipCode() {
-		fail("Not yet implemented");
+		Customer customer = new Customer("John Doe", "Latvia", "LV", "Kurzeme", "LV-3601");
+		customer.setZipCode("LV-3605");
+		assertEquals(customer.getZipCode(),"LV-3605");
 	}
 
 }
