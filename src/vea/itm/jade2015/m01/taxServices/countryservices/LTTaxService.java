@@ -1,6 +1,6 @@
-package vea.itm.jade2015.taxServices.countryServices;
+package vea.itm.jade2015.m01.taxServices.countryservices;
 
-import vea.itm.jade2015.taxServices.TaxService;
+import vea.itm.jade2015.m01.taxServices.TaxService;
 
 public class LTTaxService implements TaxService {
 

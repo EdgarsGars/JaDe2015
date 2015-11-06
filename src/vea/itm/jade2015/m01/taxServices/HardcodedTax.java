@@ -1,4 +1,4 @@
-package vea.itm.jade2015.taxServices;
+package vea.itm.jade2015.m01.taxServices;
 public class HardcodedTax implements TaxService {
 
 	public double getTax(double total) {

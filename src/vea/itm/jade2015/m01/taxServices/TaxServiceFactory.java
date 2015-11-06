@@ -1,4 +1,4 @@
-package vea.itm.jade2015.taxServices;
+package vea.itm.jade2015.m01.taxServices;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -22,7 +22,7 @@ public class TaxServiceFactory implements TaxFactory{
 			if(dictionary.containsKey(c.getCountryCode())){
 				ts = dictionary.get(c.getCountryCode());
 			} else{
-				ts = (TaxService)Class.forName("vea.itm.jade2015.taxServices.countryServices."+c.getCountryCode()+"TaxService").getConstructor().newInstance();
+				ts = (TaxService)Class.forName("vea.itm.jade2015.m01.taxServices.countryservices."+c.getCountryCode()+"TaxService").getConstructor().newInstance();
 				dictionary.put(c.getCountryCode(), ts);
 			}
 		} catch (Exception e) {

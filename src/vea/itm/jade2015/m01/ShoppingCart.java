@@ -2,9 +2,9 @@ package vea.itm.jade2015.m01;
 
 import java.util.ArrayList;
 
-import vea.itm.jade2015.taxServices.TaxFactory;
-import vea.itm.jade2015.taxServices.TaxObject;
-import vea.itm.jade2015.taxServices.TaxServiceFactory;
+import vea.itm.jade2015.m01.taxServices.TaxFactory;
+import vea.itm.jade2015.m01.taxServices.TaxObject;
+import vea.itm.jade2015.m01.taxServices.TaxServiceFactory;
 
 public class ShoppingCart {
 	
@@ -54,8 +54,8 @@ public class ShoppingCart {
     	
     	double amount = calculateTotal();
     	
-    	
     }
 
 
 }
+
