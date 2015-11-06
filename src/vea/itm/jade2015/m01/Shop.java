@@ -24,7 +24,7 @@ public final class Shop extends ItemList {
 	}
 	
 	/**
-	 * Sets true in hashmap watched indicating that Customer has been viewed all new Items.
+	 * Get all items
 	 * @param customer - Customer in question
 	 * @return all items in the Shop
 	 */

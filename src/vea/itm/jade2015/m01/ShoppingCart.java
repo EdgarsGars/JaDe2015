@@ -18,7 +18,6 @@ public class ShoppingCart {
 			total += item.cost * item.quantity;
 		}
 
-
         double tax;
         if (customer.stateCode == "DE")
             tax = total * .08d;

@@ -4,8 +4,10 @@ import vea.itm.jade2015.m01.paymentservice.payment.CreditCard;
 import vea.itm.jade2015.m01.paymentservice.payment.EBank;
 import vea.itm.jade2015.m01.paymentservice.payment.PayPal;
 import vea.itm.jade2015.m01.paymentservice.payment.Payment;
+import vea.itm.jade2015.m01.ServiceFactory;;
 
-public class PaymentFactory {
+public class PaymentFactory implements ServiceFactory{
+	
 	public Payment getPayment(String paymethod){
 		if(paymethod == null){
 	         return null;
