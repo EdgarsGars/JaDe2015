@@ -26,9 +26,9 @@ public class TaxJarAPI implements TaxService {
 	 * @param customer - customer in question 
 	 * @return tax rate
 	 */
-	public double getTax(TaxObject taxObject) {
+	public double getTax(double total) {
 		double rate = 0;
-		
+		/*
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		
 		URIBuilder builder = new URIBuilder();
@@ -78,7 +78,7 @@ public class TaxJarAPI implements TaxService {
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 		}
-	    
+	    */
 		return rate;
 	}
 

@@ -1,16 +1,37 @@
 package vea.itm.jade2015.taxServices;
 
-public class TaxServiceFactory {
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
 
-	public static TaxService getTaxService(String serviceName) {
-		if (serviceName.equals("hardcode")) {
-			return null;
-		} else if (serviceName.equals("taxJar")) {
-			return new TaxJarAPI();
-		} else if (serviceName.equals("")) {
-			return null;
+import vea.itm.jade2015.m01.Customer;
+
+public class TaxServiceFactory implements TaxFactory{
+
+	static Map<String, TaxService> dictionary = new HashMap<String, TaxService>();
+	Customer c;
+	
+	public TaxServiceFactory(Customer c){
+		this.c = c;
+	}
+	
+	public TaxService getTaxService() {
+		
+		TaxService ts = null;
+		try {
+			if(dictionary.containsKey(c.getCountryCode())){
+				ts = dictionary.get(c.getCountryCode());
+			} else{
+				ts = (TaxService)Class.forName("vea.itm.jade2015.taxServices.countryServices."+c.getCountryCode()+"TaxService").getConstructor().newInstance();
+				dictionary.put(c.getCountryCode(), ts);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			ts = new ZeroTax();
 		}
-		return null;
+		return ts;
+
 	}
 
 }

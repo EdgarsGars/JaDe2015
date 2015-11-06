@@ -2,27 +2,37 @@ package vea.itm.jade2015.m01;
 
 import java.util.ArrayList;
 
+import vea.itm.jade2015.taxServices.TaxFactory;
 import vea.itm.jade2015.taxServices.TaxObject;
 import vea.itm.jade2015.taxServices.TaxServiceFactory;
 
 public class ShoppingCart {
 	
 	ArrayList<Item> orderItems = new ArrayList<Item>();
+	TaxFactory taxFactory;
+	
+	ShoppingCart(Customer c){
+		this(new TaxServiceFactory(c));
+	}
+	
+	ShoppingCart(TaxFactory taxFactory){
+		this.taxFactory = taxFactory;
+	}
 	
 	/**
 	 * Calculate total costs of items in the ShoppingCart - including taxes
 	 * @param customer - customer in question 
 	 * @return total costs
 	 */
-    public double calculateTotal(Customer customer)
+    public double calculateTotal()
     {
     	double total = 0;
     	for (Item item : orderItems) {
 			total += item.getCost() * item.getQuantity();
 		}
-    	TaxObject taxObject = new TaxObject(total, customer);
-        double tax = TaxServiceFactory.getTaxService("taxJar").getTax(taxObject);
-        total = total + total * tax;
+    	
+        double tax = taxFactory.getTaxService().getTax(total);
+        total = total + tax;
         return total;
     }
     
@@ -40,15 +50,9 @@ public class ShoppingCart {
      * @param customer - Customer in question
      * @param method - Paying method string
      */
-    public void pay(Customer customer, String method){
+    public void pay(String method){
     	
-    	double amount = calculateTotal(customer);
-    	
-    	if(method.equalsIgnoreCase("PayPal")){
-    		PayPalAccount acc = new PayPalAccount(customer);
-    		String account = PayPalAccount.findAccount(new Customer());
-    		acc.pay(amount, account);
-    	} // TODO Add MasterCard and Visa services in the future
+    	double amount = calculateTotal();
     	
     	
     }

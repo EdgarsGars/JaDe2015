@@ -1,8 +1,8 @@
 package vea.itm.jade2015.taxServices;
 public class HardcodedTax implements TaxService {
 
-	public double getTax(TaxObject customer) {
-		
+	public double getTax(double total) {
+		/*
 		if(customer.getCountryCode().equals("UK")){
 			return 0.04d;
 		}
@@ -33,7 +33,7 @@ public class HardcodedTax implements TaxService {
 		else if(customer.getCountryCode().equals("DE")){
 			return 0.08d;
 		}
-		
+		*/
 		return 0;
 	}
 
