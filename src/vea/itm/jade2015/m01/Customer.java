@@ -1,6 +1,8 @@
 package vea.itm.jade2015.m01;
 
-public class Customer {
+import vea.itm.jade2015.m01.productservice.ShopListener;
+
+public class Customer implements ShopListener{
 	private String name;
 	private String country;
 	private String countryCode;
@@ -46,6 +48,10 @@ public class Customer {
 	}
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
+	}
+
+	public void newProductNotification(Product product) {
+		System.out.println(name + ": Nice! I see new product: " + product.getCode());
 	}
 	
 	

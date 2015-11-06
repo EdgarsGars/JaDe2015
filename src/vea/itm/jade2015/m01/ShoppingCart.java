@@ -1,9 +1,12 @@
 package vea.itm.jade2015.m01;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+import vea.itm.jade2015.m01.paymentservice.Order;
+import vea.itm.jade2015.m01.productservice.Visitor;
 import vea.itm.jade2015.m01.taxServices.TaxFactory;
-import vea.itm.jade2015.m01.taxServices.TaxObject;
 import vea.itm.jade2015.m01.taxServices.TaxServiceFactory;
 
 public class ShoppingCart {
@@ -28,11 +31,17 @@ public class ShoppingCart {
     {
     	double total = 0;
     	for (Item item : orderItems) {
-			total += item.getCost() * item.getQuantity();
+			total += item.getProduct().getCost() * item.getQuantity();
 		}
-    	
-        double tax = taxFactory.getTaxService().getTax(total);
-        total = total + tax;
+        return total;
+    }
+    
+    public double calculateTotal(Visitor discountVisitor)
+    {
+    	double total = 0;
+    	for (Item item : orderItems) {
+			total += item.getProduct().getCost() * item.getQuantity() - item.getProduct().getCategory().getDiscount(discountVisitor, item);
+		}
         return total;
     }
     
@@ -44,18 +53,25 @@ public class ShoppingCart {
     	orderItems.add(item);
     }
     
-    /**
-     * On checkout, Pay method is called providing the method of paying (e.g. PayPal, MasterCard). Method uses corresponding services
-     * to do money transaction from Customer's account to Companies account.  
-     * @param customer - Customer in question
-     * @param method - Paying method string
-     */
-    public void pay(String method){
+    public Order checkout(){
     	
-    	double amount = calculateTotal();
+    	double subTotal = calculateTotal();
     	
+    	double tax = taxFactory.getTaxService().getTax(subTotal);
+    	subTotal = subTotal + tax;
+    	
+    	return new Order(subTotal);
     }
-
+    
+    public Order checkout(Visitor discountVisitor){
+    	
+    	double subTotal = calculateTotal(discountVisitor);
+    	
+    	double tax = taxFactory.getTaxService().getTax(subTotal);
+    	subTotal = subTotal + tax;
+    	
+    	return new Order(subTotal);
+    }
 
 }
 

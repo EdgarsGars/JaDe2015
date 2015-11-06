@@ -1,15 +1,15 @@
 package vea.itm.jade2015.m01;
 
+import vea.itm.jade2015.m01.productservice.Category;
+
 public class Item {
 	
 	private int quantity;
-	private String code;
-	private double cost;
+	private Product product;
     
-    public Item(int quantity, String code, double cost){
+    public Item(int quantity, Product product){
     	setQuantity(quantity);
-    	setCode(code);
-    	setCost(cost);
+    	setProduct(product);
     }
 	
 	
@@ -20,21 +20,13 @@ public class Item {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-
-	public String getCode() {
-		return code;
+	
+	private void setProduct(Product product){
+		this.product = product;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	public double getCost() {
-		return cost;
-	}
-
-	public void setCost(double cost) {
-		this.cost = cost;
+	public Product getProduct() {
+		return product;
 	}
 
 

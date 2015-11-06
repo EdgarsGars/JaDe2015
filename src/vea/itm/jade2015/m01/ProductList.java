@@ -9,14 +9,14 @@ import java.util.HashMap;
  * @author Janis
  *
  */
-public abstract class ItemList {
-	private HashMap<String,Item> items;
+public abstract class ProductList {
+	private HashMap<String,Product> items;
 	
-	ItemList(){
-		items = new HashMap<String,Item>();
+	ProductList(){
+		items = new HashMap<String,Product>();
 	}
 	
-	boolean addItem(Item item){
+	boolean addProduct(Product item){
 		if (item!=null){
 			items.put(item.getCode(),item);
 			return true;
@@ -26,7 +26,7 @@ public abstract class ItemList {
 		}
 	}
 	
-	boolean removeItem(String code){
+	boolean removeProduct(String code){
 		if(items.containsKey(code)){
 			items.remove(code);
 			return true;
@@ -35,13 +35,13 @@ public abstract class ItemList {
 		}
 	}
 	
-	Item getItem(String code){
+	Product getProduct(String code){
 		return items.get(code);
 	}
 	
 
-	protected ArrayList<Item> getAllItems(){
-		return new ArrayList<Item>(items.values());
+	protected ArrayList<Product> getAllItems(){
+		return new ArrayList<Product>(items.values());
 	}
 
 }

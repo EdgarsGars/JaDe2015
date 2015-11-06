@@ -4,7 +4,7 @@ public class Recipient {
 	
 	private String accNr = "LV000000000001";
 
-	private String getAccNr() {
+	public String getAccNr() {
 		return accNr;
 	}
 

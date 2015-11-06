@@ -1,6 +1,6 @@
 package vea.itm.jade2015.m01;
 
-public interface ShopService {
+public interface ShopService<T> {
 
-	public ServiceFactory getServiceFactory(String serviceFactory);
+	public ServiceFactory<T> getServiceFactory(String serviceFactory);
 }

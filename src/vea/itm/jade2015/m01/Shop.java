@@ -4,53 +4,45 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import vea.itm.jade2015.m01.paymentservice.Recipient;
+import vea.itm.jade2015.m01.productservice.ShopListener;
+
 /**
  * Shop class extends ItemList.
  * Shop allows Customer to know if new items has been added (calling isNewItems()) since last getAllItems() call.
  * @author Janis
  *
  */
-public final class Shop extends ItemList {
-
-	private HashMap<String,Boolean> watched = new HashMap<String,Boolean>();
+public final class Shop extends ProductList{
 	
-	boolean addItem(Item item){
-		if(super.addItem(item)){
-			resetWatched();
+	private ArrayList<ShopListener> listeners = new ArrayList<ShopListener>();
+	//private HashMap<String,Boolean> watched = new HashMap<String,Boolean>();
+	
+	boolean addItem(Product item){
+		if(super.addProduct(item)){
+			notify(item);
 			return true;
 		}else{
 			return false;
 		}
 	}
 	
-	/**
-	 * Get all items
-	 * @param customer - Customer in question
-	 * @return all items in the Shop
-	 */
-	ArrayList<Item> getAllItems(Customer customer){
-		//Sets true, indicating that Customer has viewed all new Items.
-		watched.put(customer.getName(),true);
-		return (ArrayList<Item>) super.getAllItems();
+	public static Recipient getReciepientForShop(){
+		return new Recipient();
 	}
 	
-	private void resetWatched(){
-		for (Entry<String, Boolean> pair : watched.entrySet()) {
-			pair.setValue(false);
+	public void addListener(ShopListener shopListener){
+		listeners.add(shopListener);
+	}
+	
+	public void removeListener(ShopListener shopListener){
+		listeners.remove(shopListener);
+	}
+	
+	protected void notify(Product newProduct){
+		for (ShopListener shopListener : listeners) {
+			shopListener.newProductNotification(newProduct);
 		}
 	}
-	
-	/**
-	 * Customer can call this method to view if new Items has arrived in the Shop
-	 * @param customer - Customer in question
-	 * @return true - if there are new Items in the Shop, false - if not
-	 */
-	public boolean isNewItems(Customer customer){
-		if(watched.containsKey(customer.getName())){
-			return watched.get(customer.getName());
-		} else 
-			return true;
-	}
-	
 	
 }
