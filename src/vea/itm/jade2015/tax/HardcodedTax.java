@@ -1,5 +1,7 @@
-package vea.itm.jade2015.taxServices;
-public class HardcodedTax implements TaxService {
+package vea.itm.jade2015.tax;
+
+@Deprecated
+public class HardcodedTax {
 
 	public double getTax(TaxObject customer) {
 		
