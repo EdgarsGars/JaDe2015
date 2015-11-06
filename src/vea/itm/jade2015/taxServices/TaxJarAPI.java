@@ -1,13 +1,17 @@
 package vea.itm.jade2015.taxServices;
 
 import org.apache.http.Header;
+import org.apache.http.HttpConnection;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
 
 import org.json.JSONObject;
@@ -56,7 +60,7 @@ public class TaxJarAPI implements TaxService {
 	    
 		try {
 			response = httpClient.execute(postRequest);
-			if (response.getStatusLine().getStatusCode() != 200){
+			if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK){
 		    	throw new RuntimeException("Failed: HTTP error code : " + response.getStatusLine().getStatusCode());
 		    }
 			HttpEntity entity = response.getEntity();
