@@ -2,11 +2,6 @@ package vea.itm.jade2015.m01;
 
 import java.text.DecimalFormat;
 
-
-import java.util.Date;
-
-import vea.itm.jade2015.tax.TaxObject;
-
 public class Main {
 
 	public static void main(String[] args) {
@@ -34,7 +29,7 @@ public class Main {
 			System.out.println(item.getCode() + "\t\t" + dec.format(item.getCost()) + "$");
 
 		}
-		TaxObject taxObject = new TaxObject(totalWithoutTax, customer1);
+		//TaxObject taxObject = new TaxObject(totalWithoutTax, customer1);
 		System.out.println("-------CHECKOUT------");
 		//System.out.println("Tax rate in " + customer1.getCountry() + " = "
 		//		+ Factory.getTaxService("TaxJarAPI").getTax(taxObject));

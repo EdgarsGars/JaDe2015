@@ -1,6 +1,7 @@
 package vea.itm.jade2015.m01;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import vea.itm.jade2015.tax.TaxObject;
 import vea.itm.jade2015.tax.interfaces.CountryTaxFactory;
@@ -26,7 +27,7 @@ public class ShoppingCart {
 			total += item.getCost() * item.getQuantity();
 		}
     	
-        double tax = taxFactory.getTaxService().getTax();
+        double tax = taxFactory.getTaxService().getTax(Calendar.getInstance());
         total = total*(1+tax);
         return total;
     }
