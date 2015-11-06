@@ -3,6 +3,9 @@ package vea.itm.jade2015.taxServices;
 public class TaxServiceFactory {
 
 	public static TaxService getTaxService(String serviceName) {
+		// create class object by name /reflection
+		
+		
 		if (serviceName.equals("hardcode")) {
 			return new HardcodedTax();
 		} else if (serviceName.equals("taxJar")) {
