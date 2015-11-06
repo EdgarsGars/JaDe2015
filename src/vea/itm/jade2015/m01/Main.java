@@ -5,8 +5,8 @@ import java.text.DecimalFormat;
 
 import java.util.Date;
 
-import vea.itm.jade2015.taxServices.TaxObject;
-import vea.itm.jade2015.taxServices.TaxServiceFactory;
+import vea.itm.jade2015.tax.TaxObject;
+import vea.itm.jade2015.tax.interfaces.TaxFactory;
 
 public class Main {
 
@@ -15,7 +15,7 @@ public class Main {
 		DecimalFormat dec = new DecimalFormat("#.##");
 		Shop s = new Shop();
 		Customer customer1 = new Customer("John Doe", "Latvia", "LV", "", "");
-		ShoppingCart shopCart = new ShoppingCart();
+		ShoppingCart shopCart = new ShoppingCart(Factory.getTaxFactory(customer1));
 
 		// Init shop with items
 		s.addItem(new Item(1, "Banana", 2.4));
@@ -37,23 +37,14 @@ public class Main {
 		}
 		TaxObject taxObject = new TaxObject(totalWithoutTax, customer1);
 		System.out.println("-------CHECKOUT------");
-		System.out.println("Tax rate in " + customer1.getCountry() + " = "
-				+ TaxServiceFactory.getTaxService("TaxJarAPI").getTax(taxObject));
+		//System.out.println("Tax rate in " + customer1.getCountry() + " = "
+		//		+ Factory.getTaxService("TaxJarAPI").getTax(taxObject));
 		System.out.println("Total without tax : " + dec.format(totalWithoutTax) + "$");
 		System.out.println("---------------------");
-		System.out.println("Total cost with tax : " + dec.format(shopCart.calculateTotal(customer1)) + "$");
+		System.out.println("Total cost with tax : " + dec.format(shopCart.calculateTotal()) + "$");
 		// System.out.println(s.getAllItems(new Customer()).toString());
 
-		try {
-		Class<?> class2 = Class.forName("java.util.Date");
-		Object newClass = class2.newInstance();
-		if(newClass instanceof Date){
-			System.out.println("TRUE");
-		} else {System.out.println("FALSE");}
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
+
 		
 	}
 

@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import vea.itm.jade2015.m01.Customer;
+import vea.itm.jade2015.tax.TaxObject;
 
 public class TaxObjectTest {
 

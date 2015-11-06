@@ -1,7 +1,8 @@
-package vea.itm.jade2015.taxServices;
+package vea.itm.jade2015.tax;
 
 import vea.itm.jade2015.m01.Customer;
 
+@Deprecated
 public class TaxObject {
 
 	private double amount;

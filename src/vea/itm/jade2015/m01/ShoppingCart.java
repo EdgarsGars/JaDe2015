@@ -2,27 +2,33 @@ package vea.itm.jade2015.m01;
 
 import java.util.ArrayList;
 
-import vea.itm.jade2015.taxServices.TaxObject;
-import vea.itm.jade2015.taxServices.TaxServiceFactory;
+import vea.itm.jade2015.tax.TaxObject;
+import vea.itm.jade2015.tax.interfaces.CountryTaxFactory;
+import vea.itm.jade2015.tax.interfaces.TaxFactory;
 
 public class ShoppingCart {
 	
 	ArrayList<Item> orderItems = new ArrayList<Item>();
+	CountryTaxFactory taxFactory;
+	
+	public ShoppingCart(CountryTaxFactory taxFactory){
+		this.taxFactory=taxFactory;
+	}
 	
 	/**
 	 * Calculate total costs of items in the ShoppingCart - including taxes
 	 * @param customer - customer in question 
 	 * @return total costs
 	 */
-    public double calculateTotal(Customer customer)
+    public double calculateTotal()
     {
     	double total = 0;
     	for (Item item : orderItems) {
 			total += item.getCost() * item.getQuantity();
 		}
-    	TaxObject taxObject = new TaxObject(total, customer);
-        double tax = TaxServiceFactory.getTaxService("TaxJarAPI").getTax(taxObject);
-        total = total + total * tax;
+    	
+        double tax = taxFactory.getTaxService().getTax();
+        total = total*(1+tax);
         return total;
     }
     
@@ -42,7 +48,7 @@ public class ShoppingCart {
      */
     public void pay(Customer customer, String method){
     	
-    	double amount = calculateTotal(customer);
+    	double amount = calculateTotal();
     	
     	if(method.equalsIgnoreCase("PayPal")){
     		PayPalAccount acc = new PayPalAccount(customer);
