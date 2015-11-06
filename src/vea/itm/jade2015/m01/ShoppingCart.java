@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import vea.itm.jade2015.tax.TaxObject;
 import vea.itm.jade2015.tax.interfaces.CountryTaxFactory;
-import vea.itm.jade2015.tax.interfaces.TaxFactory;
 
 public class ShoppingCart {
 	

@@ -6,7 +6,6 @@ import java.text.DecimalFormat;
 import java.util.Date;
 
 import vea.itm.jade2015.tax.TaxObject;
-import vea.itm.jade2015.tax.interfaces.TaxFactory;
 
 public class Main {
 
